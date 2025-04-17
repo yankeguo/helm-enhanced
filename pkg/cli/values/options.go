@@ -26,6 +26,7 @@ import (
 	"sigs.k8s.io/yaml"
 
 	"helm.sh/helm/v3/pkg/getter"
+	"helm.sh/helm/v3/pkg/monkeypatches"
 	"helm.sh/helm/v3/pkg/strvals"
 )
 
@@ -50,6 +51,10 @@ func (opts *Options) MergeValues(p getter.Providers) (map[string]interface{}, er
 
 		bytes, err := readFile(filePath, p)
 		if err != nil {
+			return nil, err
+		}
+
+		if bytes, err = monkeypatches.TranslateJsonnet(bytes, filePath); err!= nil {
 			return nil, err
 		}
 
