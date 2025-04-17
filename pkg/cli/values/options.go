@@ -54,7 +54,7 @@ func (opts *Options) MergeValues(p getter.Providers) (map[string]interface{}, er
 			return nil, err
 		}
 
-		if bytes, err = monkeypatches.TranslateJsonnet(bytes, filePath); err!= nil {
+		if bytes, err = monkeypatches.TranslateJsonnet(bytes, filePath); err != nil {
 			return nil, err
 		}
 
